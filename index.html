@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style type="text/css">
+    ul, li{
+      list-style: none;
+    }
+    a{
+      text-decoration: none;
+    }
+    a:visited{
+      color: #000;
+    }
+    .nav-bar-container{
+      position: fixed;
+      width: 100px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .nav-bar-container .nav-bar-wrapper{
+      height: 100%;
+      overflow-y: auto;
+    }
+    .nav-bar-container .nav-bar-wrapper ul{
+      margin: 0;
+      padding: 0;
+    }
+    .nav-bar-container .nav-bar-wrapper .item{
+      height: 100px;
+      background: #3a93e6;
+    }
+    .header{
+      position: fixed;
+      top: 0;
+      left: 100px;
+      right: 0;
+      display: flex;
+      height: 100px;
+      justify-content: space-between;
+      background: #fff;
+    }
+    .content-container{
+      position: fixed;
+      top: 100px;
+      left: 320px;
+      bottom: 0;
+      right: 0;
+      overflow-y: auto;
+    }
+    .content-left{
+      position: fixed;
+      width: 200px;
+      top: 100px;
+      left: 100px;
+    }
+    
+    .section1{
+      height: 500px;
+      background: #ff0000;
+    }
+    .section2{
+      height: 500px;
+      background: #00ff00;
+    }
+    .section3{
+      height: 500px;
+      background: #0000ff;
+    }
+    .active{
+      background: #f00;
+    }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="nav-bar-container">
+        <div class="nav-bar-wrapper">
+          <div style="height:100px;background: #5994b6;">信永中和</div>
+          <ul>
+            <li class="item">a</li>
+            <li class="item">b</li>
+            <li class="item">c</li>
+            <li class="item">d</li>
+            <li class="item">e</li>
+            <li class="item">f</li>
+          </ul>
+        
+        </div>
+        
+      </div>
+      <div class="header">
+        <div>
+          <span>公司名称</span>
+          <input placeholder="请输入公司名称">
+        </div>
+        <div>
+          <img src="">
+          <span>BJ5502</span>
+        </div>
+      </div>
+      <div class="content-left">
+        <ul>
+          <li v-on:click="select(0)" :class="{'active': 0===currentIndex}"><a href="#link1">item1</a></li>
+          <li v-on:click="select(1)" :class="{'active': 1===currentIndex}"><a href="#link2">item2</a></li>
+          <li v-on:click="select(2)" :class="{'active': 2===currentIndex}"><a href="#link3">item3</a></li>
+        </ul>
+
+        <!-- <ul>
+          <li>level1
+            <ul v-if="{currentIndex ===0 || currentIndex ===1||currentIndex ===2}">
+              <li v-on:click="select(0)" :class="{'active': 0===currentIndex}"><a href="#link1">item1</a></li>
+              <li v-on:click="select(1)" :class="{'active': 1===currentIndex}"><a href="#link2">item2</a></li>
+              <li v-on:click="select(2)" :class="{'active': 2===currentIndex}"><a href="#link3">item3</a></li>
+            </ul>
+          </li>
+          <li >level2
+            <ul v-if="{currentIndex ===3 || currentIndex ===4||currentIndex ===5}">
+              <li v-on:click="select(3)" :class="{'active': 3===currentIndex}"><a href="#link4">item1</a></li>
+              <li v-on:click="select(4)" :class="{'active': 4===currentIndex}"><a href="#link5">item2</a></li>
+              <li v-on:click="select(5)" :class="{'active': 5===currentIndex}"><a href="#link6">item3</a></li>
+            </ul>
+          </li>
+          <li >level3
+            <ul v-if="{currentIndex ===6 || currentIndex ===7||currentIndex ===8}">
+              <li v-on:click="select(6)" :class="{'active': 6===currentIndex}"><a href="#link7">item1</a></li>
+              <li v-on:click="select(7)" :class="{'active': 7===currentIndex}"><a href="#link8">item2</a></li>
+              <li v-on:click="select(8)" :class="{'active': 8===currentIndex}"><a href="#link9">item3</a></li>
+            </ul>
+          </li>
+        </ul> -->
+      </div>
+
+      <div id="wrap" class="content-container" >
+          <div class="section1">
+            <a name="link1"></a>
+          </div>
+          <div class="section2">
+            <a name="link2"></a>
+          </div>
+          <div class="section3">
+            <a name="link3"></a>
+          </div>
+          <!-- <div class="section4">
+            <a name="link4"></a>
+          </div>
+          <div class="section5">
+            <a name="link5"></a>
+          </div>
+          <div class="section6">
+            <a name="link6"></a>
+          </div>
+          <div class="section7">
+            <a name="link7"></a>
+          </div>
+          <div class="section8">
+            <a name="link8"></a>
+          </div>
+          <div class="section9">
+            <a name="link9"></a>
+          </div> -->
+      </div>
+    </div>
+    
+    
+    <script type="text/javascript">
+      var vm = new Vue({
+        data: {
+          currentIndex: 0,
+          heightArr: [] // wrap下所有a标签距容器wrap顶部距离
+        },
+        methods: {
+          select(currentIndex){
+            this.currentIndex = currentIndex;
+          },
+          
+          wrapListener() {
+            // 监听的元素
+            let wrapDom = document.getElementById('wrap')
+            // 获取wrap元素里所有的a标签元素
+            let aDom = wrapDom.getElementsByTagName('a')
+            // wrap元素里第一个a元素上边框相对离自己最近且position属性为非static的祖先元素的偏移量，如果没有这样的祖先元素，就相对于html上边界的偏移量
+            let diff = aDom[0].offsetTop
+            let len = aDom.length
+            // wrap可视区域高度
+            let domHeight = wrap.clientHeight
+            // wrap的滚动条的总高度
+            let scrollHeight = wrap.scrollHeight
+            
+            for(let i=0;i<len;i++) {
+              this.heightArr.push(aDom[i].offsetTop - diff)
+            }
+   
+            wrapDom.addEventListener('scroll', () =>{
+              let scrollTop = wrap.scrollTop
+              for(let i=0;i<len;i++) {
+                if(scrollTop > this.heightArr[i] && scrollTop < this.heightArr[i+1] && i<len-1) {
+                  this.currentIndex = i
+                } else if (i === (len-1)) {
+                  // 最后一项
+                  if(scrollTop > this.heightArr[i]) {
+                    this.currentIndex = i
+                  }
+                }
+              }
+              // 滚动到底部的条件
+              if(scrollTop + domHeight === scrollHeight) {
+                this.currentIndex = len - 1
+              }
+            })
+          }
+        },
+        mounted() {
+          this.wrapListener()
+        }
+      }).$mount('#container');
+    </script>
+  </body>
+</html>
